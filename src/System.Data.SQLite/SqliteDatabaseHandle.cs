@@ -3,21 +3,21 @@
 namespace System.Data.SQLite
 {
 	internal sealed class SqliteDatabaseHandle
-#if NET45
+#if !MONO
 		: CriticalHandleZeroOrMinusOneIsInvalid
 #else
 		: SafeHandleZeroOrMinusOneIsInvalid
 #endif
 	{
 		public SqliteDatabaseHandle()
-#if !NET45
+#if MONO
 			: base(true)
 #endif
 		{
 		}
 
 		public SqliteDatabaseHandle(IntPtr handle)
-#if !NET45
+#if MONO
 			: base(true)
 #endif
 		{
@@ -26,7 +26,7 @@ namespace System.Data.SQLite
 
 		protected override bool ReleaseHandle()
 		{
-#if NET45
+#if !MONO
 			return NativeMethods.sqlite3_close_v2(handle) == SQLiteErrorCode.Ok;
 #else
 			return NativeMethods.sqlite3_close(handle) == SQLiteErrorCode.Ok;

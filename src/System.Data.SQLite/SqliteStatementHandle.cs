@@ -3,14 +3,14 @@
 namespace System.Data.SQLite
 {
 	internal sealed class SqliteStatementHandle
-#if NET45
+#if !MONO
 		: CriticalHandleZeroOrMinusOneIsInvalid
 #else
 		: SafeHandleZeroOrMinusOneIsInvalid
 #endif
 	{
 		public SqliteStatementHandle()
-#if !NET45
+#if MONO
 			: base(true)
 #endif
 		{
