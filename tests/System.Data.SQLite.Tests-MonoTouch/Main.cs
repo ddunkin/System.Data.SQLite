@@ -5,7 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace System.Data.SQLite.TestsMonoTouch
+namespace System.Data.SQLite.Tests
 {
 	public class Application
 	{
