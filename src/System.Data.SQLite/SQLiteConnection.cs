@@ -239,7 +239,11 @@ namespace System.Data.SQLite
 
 		internal static byte[] ToUtf8(string value)
 		{
-			return Encoding.UTF8.GetBytes(value);
+			var encoding = Encoding.UTF8;
+			int len = encoding.GetByteCount(value);
+			byte[] bytes = new byte[len + 1];
+			encoding.GetBytes(value, 0, value.Length, bytes, 0);
+			return bytes;
 		}
 
 		internal static string FromUtf8(IntPtr ptr)
