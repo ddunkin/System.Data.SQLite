@@ -2,9 +2,17 @@
 
 namespace System.Data.SQLite
 {
-	internal sealed class SqliteStatementHandle : CriticalHandleZeroOrMinusOneIsInvalid
+	internal sealed class SqliteStatementHandle
+#if NET45
+		: CriticalHandleZeroOrMinusOneIsInvalid
+#else
+		: SafeHandleZeroOrMinusOneIsInvalid
+#endif
 	{
 		public SqliteStatementHandle()
+#if !NET45
+			: base(true)
+#endif
 		{
 		}
 

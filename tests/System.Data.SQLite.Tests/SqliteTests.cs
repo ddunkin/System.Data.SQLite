@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+#if NET45
 using Dapper;
+#endif
 using NUnit.Framework;
 
 namespace System.Data.SQLite.Tests
@@ -144,6 +146,7 @@ values(1, 'two', 3, 4, 5, 6, 1, 0);");
 			}
 		}
 
+#if NET45
 		[Test]
 		public void Dapper()
 		{
@@ -155,6 +158,7 @@ values(1, 'two', 3, 4, 5, 6, 1, 0);");
 				CollectionAssert.AreEqual(new long[] { 1, 2 }, results);
 			}
 		}
+#endif
 
 		[TestCase(0)]
 		[TestCase(1)]
@@ -318,7 +322,7 @@ values(1, 'two', 3, 4, 5, 6, 1, 0);");
 						}
 						catch (TargetInvocationException ex)
 						{
-							Assert.Contains(ex.InnerException.GetType(), new[] { typeof(InvalidCastException), typeof(FormatException), typeof(OverflowException) });
+							Assert.IsTrue(new[] { typeof(InvalidCastException), typeof(FormatException), typeof(OverflowException) }.Contains(ex.InnerException.GetType()));
 						}
 					}
 				}
