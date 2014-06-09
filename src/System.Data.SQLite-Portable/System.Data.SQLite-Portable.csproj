@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{8089943C-CF7F-4452-BC59-1835F0C1349E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Data.SQLite</RootNamespace>
+    <AssemblyName>System.Data.SQLite</AssemblyName>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="..\System.Data.SQLite\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SolutionVersion.cs">
+      <Link>Properties\SolutionVersion.cs</Link>
+    </Compile>
+    <Compile Include="SQLiteCommand.cs" />
+    <Compile Include="SQLiteConnection.cs" />
+    <Compile Include="SQLiteConnectionStringBuilder.cs" />
+    <Compile Include="SQLiteDataReader.cs" />
+    <Compile Include="SQLiteErrorCode.cs" />
+    <Compile Include="SQLiteException.cs" />
+    <Compile Include="SQLiteLog.cs" />
+    <Compile Include="SQLiteOpenFlags.cs" />
+    <Compile Include="SQLiteParameter.cs" />
+    <Compile Include="SQLiteParameterCollection.cs" />
+    <Compile Include="SQLiteTransaction.cs" />
+    <Compile Include="LogEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Portable.Data">
+      <HintPath>..\..\packages\Logos.PclContrib.Portable.Data.0.1.0.0\lib\portable-net4+sl5+netcore45+wp8+MonoAndroid1+MonoTouch1\Portable.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
