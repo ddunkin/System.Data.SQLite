@@ -34,7 +34,7 @@ namespace System.Data.SQLite
 					{
 						byte* remainingSqlBytes;
 						SqliteStatementHandle statement;
-						errorCode = NativeMethods.sqlite3_prepare_v2(m_database, sqlBytes, m_commandTextBytes.Length - m_bytesUsed - 1, out statement, out remainingSqlBytes);
+						errorCode = NativeMethods.sqlite3_prepare_v2(m_database, sqlBytes, m_commandTextBytes.Length - m_bytesUsed, out statement, out remainingSqlBytes);
 						switch (errorCode)
 						{
 						case SQLiteErrorCode.Ok:

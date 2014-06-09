@@ -430,8 +430,8 @@ namespace System.Data.SQLite
 					(object) integerValue;
 
 			case SQLiteColumnType.Text:
-				int stringByteCount = NativeMethods.sqlite3_column_bytes(m_currentStatement, ordinal);
-				string stringValue = SQLiteConnection.FromUtf8(NativeMethods.sqlite3_column_text(m_currentStatement, ordinal), stringByteCount);
+				int stringLength = NativeMethods.sqlite3_column_bytes(m_currentStatement, ordinal);
+				string stringValue = SQLiteConnection.FromUtf8(NativeMethods.sqlite3_column_text(m_currentStatement, ordinal), stringLength);
 				return dbType == DbType.DateTime ? (object) DateTime.ParseExact(stringValue, s_dateTimeFormats, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None) :
 					(object) stringValue;
 
@@ -560,7 +560,7 @@ namespace System.Data.SQLite
 		private void BindText(int ordinal, string text)
 		{
 			byte[] bytes = SQLiteConnection.ToUtf8(text);
-			NativeMethods.sqlite3_bind_text(m_currentStatement, ordinal, bytes, bytes.Length - 1, s_sqliteTransient).ThrowOnError();
+			NativeMethods.sqlite3_bind_text(m_currentStatement, ordinal, bytes, bytes.Length, s_sqliteTransient).ThrowOnError();
 		}
 
 		private static string ToString(DateTime dateTime)
