@@ -21,7 +21,7 @@ namespace System.Data.SQLite
 				throw new ArgumentOutOfRangeException("index");
 			if (index < m_statements.Count)
 				return m_statements[index];
-			if (m_bytesUsed == m_commandTextBytes.Length - 1)
+			if (m_bytesUsed == m_commandTextBytes.Length)
 				return null;
 
 			Random random = null;
