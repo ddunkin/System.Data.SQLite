@@ -147,6 +147,7 @@ values(1, 'two', 3, 4, 5, 6, 1, 0);");
 		}
 
 		[TestCase("test")]
+		[TestCase("foo\0bar")]
 		public void NamedParameterStringValue(string value)
 		{
 			using (SQLiteConnection conn = new SQLiteConnection(m_csb.ConnectionString))

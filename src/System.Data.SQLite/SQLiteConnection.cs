@@ -238,7 +238,7 @@ namespace System.Data.SQLite
 		}
 
 		/// <summary>
-		/// Returns the null-terminated UTF8 encoded bytes.
+		/// Returns the NUL-terminated UTF8 encoded bytes.
 		/// </summary>
 		internal static byte[] ToUtf8(string value)
 		{
@@ -249,14 +249,22 @@ namespace System.Data.SQLite
 			return bytes;
 		}
 
-		internal static string FromUtf8(IntPtr ptr)
+		/// <summary>
+		/// Decodes a UTF8 string.
+		/// </summary>
+		/// <param name="ptr">the pointer</param>
+		/// <param name="length">the length, or -1 to read up to the first NUL</param>
+		internal static string FromUtf8(IntPtr ptr, int length = -1)
 		{
-			int length = 0;
-			unsafe
+			if (length == -1)
 			{
-				byte* p = (byte*) ptr.ToPointer();
-				while (*p++ != 0)
-					length++;
+				length = 0;
+				unsafe
+				{
+					byte* p = (byte*)ptr.ToPointer();
+					while (*p++ != 0)
+						length++;
+				}
 			}
 
 			byte[] bytes = new byte[length];
