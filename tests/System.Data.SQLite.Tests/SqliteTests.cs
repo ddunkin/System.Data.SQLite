@@ -210,9 +210,6 @@ values(1, 'two', 3, 4, 5, 6, 1, 0);");
 		[TestCase(10)]
 		[TestCase(100)]
 		[TestCase(250)]
-#if MONOANDROID
-		[Ignore]
-#endif
 		public void CancelExecuteReader(int milliseconds)
 		{
 			using (SQLiteConnection conn = new SQLiteConnection(m_csb.ConnectionString))
