@@ -146,6 +146,27 @@ values(1, 'two', 3, 4, 5, 6, 1, 0);");
 			}
 		}
 
+		[TestCase("test")]
+		public void NamedParameterStringValue(string value)
+		{
+			using (SQLiteConnection conn = new SQLiteConnection(m_csb.ConnectionString))
+			{
+				conn.Open();
+				conn.Execute(@"create table Test (Id integer primary key, String text);");
+				using (var cmd = new SQLiteCommand(@"insert into Test(Id, String) values(1, @value)", conn))
+				{
+					var param = cmd.Parameters.Add("value", DbType.String);
+					param.Value = value;
+					cmd.ExecuteNonQuery();
+				}
+				using (var reader = conn.ExecuteReader(@"select String from Test where Id = 1"))
+				{
+					Assert.IsTrue(reader.Read());
+					Assert.AreEqual(value, reader.GetString(0));
+				}
+			}
+		}
+
 #if NET45
 		[Test]
 		public void Dapper()

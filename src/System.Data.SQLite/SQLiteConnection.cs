@@ -237,6 +237,9 @@ namespace System.Data.SQLite
 			}
 		}
 
+		/// <summary>
+		/// Returns the null-terminated UTF8 encoded bytes.
+		/// </summary>
 		internal static byte[] ToUtf8(string value)
 		{
 			var encoding = Encoding.UTF8;

@@ -550,7 +550,7 @@ namespace System.Data.SQLite
 		private void BindText(int ordinal, string text)
 		{
 			byte[] bytes = SQLiteConnection.ToUtf8(text);
-			NativeMethods.sqlite3_bind_text(m_currentStatement, ordinal, bytes, bytes.Length, s_sqliteTransient).ThrowOnError();
+			NativeMethods.sqlite3_bind_text(m_currentStatement, ordinal, bytes, bytes.Length - 1, s_sqliteTransient).ThrowOnError();
 		}
 
 		private static string ToString(DateTime dateTime)
