@@ -9,13 +9,13 @@
     <description>An independent implementation of the core of ADO.NET.</description>
     <copyright>Copyright 2014 Faithlife / Logos Bible Software</copyright>
     <dependencies>
-      <group targetFramework="portable-net45+win+wp8+MonoAndroid+MonoTouch">
+      <group targetFramework="portable-net45+netcore45+MonoAndroid+MonoTouch">
         <dependency id="Logos.PclContrib.Portable.Data" version="0.1" />
       </group>
     </dependencies>
   </metadata>
   <files>   
-    <file src="src\System.Data.SQLite-Portable\bin\$configuration$\System.Data.SQLite.*" target="lib\portable-net45+win+wp8+MonoAndroid+MonoTouch\" />
+    <file src="src\System.Data.SQLite-Portable\bin\$configuration$\System.Data.SQLite.*" target="lib\portable-net45+netcore45+MonoAndroid+MonoTouch\" />
     <file src="src\System.Data.SQLite-Net45\bin\$configuration$\System.Data.SQLite.*" target="lib\Net45\" />
     <file src="src\System.Data.SQLite-Mac\bin\$configuration$\System.Data.SQLite.*" target="lib\MonoMac\" />
     <file src="src\System.Data.SQLite-MonoAndroid\bin\$configuration$\System.Data.SQLite.*" target="lib\MonoAndroid\" />

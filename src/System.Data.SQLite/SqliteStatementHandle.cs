@@ -1,20 +1,38 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿#if !PORTABLE
+using Microsoft.Win32.SafeHandles;
+#else
+using System.Runtime.InteropServices;
+#endif
 
 namespace System.Data.SQLite
 {
 	internal sealed class SqliteStatementHandle
-#if !MONO
+#if PORTABLE
+		: CriticalHandle
+#elif !MONO
 		: CriticalHandleZeroOrMinusOneIsInvalid
 #else
 		: SafeHandleZeroOrMinusOneIsInvalid
 #endif
 	{
 		public SqliteStatementHandle()
-#if MONO
+#if PORTABLE
+			: base((IntPtr) 0)
+#elif MONO
 			: base(true)
 #endif
 		{
 		}
+
+#if PORTABLE
+		public override bool IsInvalid
+		{
+			get
+			{
+				return handle == new IntPtr(-1) || handle == (IntPtr) 0;
+			}
+		}
+#endif
 
 		protected override bool ReleaseHandle()
 		{

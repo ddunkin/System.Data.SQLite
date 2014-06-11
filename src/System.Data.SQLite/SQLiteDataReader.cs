@@ -28,10 +28,17 @@ namespace System.Data.SQLite
 
 		public override bool NextResult()
 		{
-			return NextResultAsync(CancellationToken.None).Result;
+			return NextResultAsyncCore(CancellationToken.None).Result;
 		}
 
+#if !PORTABLE
 		public override Task<bool> NextResultAsync(CancellationToken cancellationToken)
+		{
+			return NextResultAsyncCore(cancellationToken);
+		}
+#endif
+
+		private Task<bool> NextResultAsyncCore(CancellationToken cancellationToken)
 		{
 			VerifyNotDisposed();
 
@@ -115,12 +122,14 @@ namespace System.Data.SQLite
 			return dataReader;
 		}
 
+#if !PORTABLE
 		internal static async Task<DbDataReader> CreateAsync(SQLiteCommand command, CommandBehavior behavior, CancellationToken cancellationToken)
 		{
 			DbDataReader dataReader = new SQLiteDataReader(command, behavior);
 			await dataReader.NextResultAsync(cancellationToken);
 			return dataReader;
 		}
+#endif
 
 		private SQLiteDataReader(SQLiteCommand command, CommandBehavior behavior)
 		{
@@ -158,7 +167,11 @@ namespace System.Data.SQLite
 						return s_canceledTask;
 					if (random == null)
 						random = new Random();
+#if PORTABLE
+					SpinWait.SpinUntil(() => false, random.Next(1, 150));
+#else
 					Thread.Sleep(random.Next(1, 150));
+#endif
 					break;
 
 				case SQLiteErrorCode.Interrupt:
@@ -440,6 +453,7 @@ namespace System.Data.SQLite
 			}
 		}
 
+#if !PORTABLE
 		public override IEnumerator GetEnumerator()
 		{
 			throw new NotSupportedException();
@@ -449,16 +463,19 @@ namespace System.Data.SQLite
 		{
 			throw new NotSupportedException();
 		}
+#endif
 
 		public override int Depth
 		{
 			get { throw new NotSupportedException(); }
 		}
 
+#if !PORTABLE
 		protected override DbDataReader GetDbDataReader(int ordinal)
 		{
 			throw new NotSupportedException();
 		}
+#endif
 
 		public override Type GetProviderSpecificFieldType(int ordinal)
 		{
@@ -475,6 +492,7 @@ namespace System.Data.SQLite
 			throw new NotSupportedException();
 		}
 
+#if !PORTABLE
 		public override Task<T> GetFieldValueAsync<T>(int ordinal, CancellationToken cancellationToken)
 		{
 			throw new NotSupportedException();
@@ -501,6 +519,7 @@ namespace System.Data.SQLite
 				cancellationTokenHandle.Free();
 			}
 		}
+#endif
 
 #if MONOTOUCH
 		[MonoTouch.MonoPInvokeCallback(typeof(SQLiteProgressCallback))]

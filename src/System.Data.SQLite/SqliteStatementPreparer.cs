@@ -49,7 +49,11 @@ namespace System.Data.SQLite
 								return null;
 							if (random == null)
 								random = new Random();
+#if PORTABLE
+							SpinWait.SpinUntil(() => false, random.Next(1, 150));
+#else
 							Thread.Sleep(random.Next(1, 150));
+#endif
 							break;
 
 						default:
